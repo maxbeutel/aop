@@ -1,27 +1,2 @@
-Proposed Config Sample:
+This project is under heavy development and is currently just explorative coding (means: nothing at all works yet).
 
-<aop>
-    <aspect service-id="ControllerAspect">
-        <matches>
-            <classname-matcher pattern="(*.)Controller" />
-            <interface-matcher name="MyControllerInterface" />
-        </matches>
-        <applies>
-            <before>
-                <matches>
-                    <methodname-matcher pattern="(*.)Action" />
-                </matches>
-
-                <call method="beforeControllerAction" />
-            </before>
-
-            <after>
-                <matches>
-                    <methodname-matcher pattern="(*.)Action" />
-                </matches>
-
-                <call method="beforeControllerAction" />
-            </after>
-        </applies>
-    </aspect>
-</aop>
