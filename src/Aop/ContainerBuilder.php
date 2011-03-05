@@ -30,7 +30,7 @@ class ContainerBuilder extends \Symfony\Component\DependencyInjection\ContainerB
             $r = new \ReflectionClass($this->getParameterBag()->resolveValue($definition->getClass()));
 
             foreach ($this->aspects as $aspect) {
-                if ($aspect->matches($r)) {
+                if ($aspect->isApplicableFor($r)) {
                     print "asassa";
                 }
             }

@@ -20,9 +20,15 @@ class Aspect
         $this->matchers[] = $matcher;
     }
 
-    public function isApplicableFor()
+    public function isApplicableFor(\ReflectionClass $r)
     {
-        
+        foreach ($this->matchers as $matcher) {
+            if ($matcher->match($r)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 
