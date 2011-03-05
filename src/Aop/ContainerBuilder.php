@@ -31,7 +31,7 @@ class ContainerBuilder extends \Symfony\Component\DependencyInjection\ContainerB
 
             foreach ($this->aspects as $aspect) {
                 if ($aspect->isApplicableFor($r)) {
-                    print "asassa";
+                    // @TODO: create proxy for object, weave and return!
                 }
             }
 
