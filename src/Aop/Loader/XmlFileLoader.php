@@ -65,7 +65,7 @@ class XmlFileLoader extends \Symfony\Component\DependencyInjection\Loader\XmlFil
                 $advice->addMatcher(new $matcherClassName($match->getArgumentsAsPhp('argument')));
             }
 
-            #$this->parseInterfaceInjector((string) $interface['class'], $interface, $file);
+            $this->container->registerAdvice($advice);
         }
     }
 }
