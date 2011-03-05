@@ -2,11 +2,8 @@
 
 namespace Aop;
 
-class ContainerBuilder
+class ContainerBuilder extends \Symfony\Component\DependencyInjection\ContainerBuilder
 {
-    public function __construct()
-    {
-    }
 }
 
 

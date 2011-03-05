@@ -30,7 +30,7 @@ $loader->registerNamespaces(array(
 $loader->register();
 
 
-$container = new ContainerBuilder();
+$container = new Aop\ContainerBuilder();
 $loader = new Aop\Loader\XmlFileLoader($container, new FileLocator('./_exploring'));
 $loader->load('sample.xml');
 
