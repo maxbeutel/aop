@@ -13,6 +13,7 @@ class InterfaceMatcher
 
     public function match(\ReflectionClass $r)
     {
+        return $r->implementsInterface($this->interface);
     }
 }
 
