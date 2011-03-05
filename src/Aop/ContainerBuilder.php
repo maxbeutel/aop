@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\Definition;
 
 class ContainerBuilder extends \Symfony\Component\DependencyInjection\ContainerBuilder
 {
-    protected $advices = array();
+    protected $aspects = array();
 
     protected function createService(Definition $definition, $id)
     {
@@ -29,9 +29,9 @@ class ContainerBuilder extends \Symfony\Component\DependencyInjection\ContainerB
         } else {
             $r = new \ReflectionClass($this->getParameterBag()->resolveValue($definition->getClass()));
 
-            foreach ($this->advices as $advice) {
-                if ($advice->matches($r)) {
-                    // @TODO
+            foreach ($this->aspects as $aspect) {
+                if ($aspect->matches($r)) {
+                    print "asassa";
                 }
             }
 
@@ -41,9 +41,9 @@ class ContainerBuilder extends \Symfony\Component\DependencyInjection\ContainerB
         return $this->configureService($id, $definition, $service);
     }
 
-    public function registerAdvice(Advice $advice)
+    public function registerAspect(Aspect $aspects)
     {
-        $this->advices[] = $advice;
+        $this->aspects[] = $aspects;
     }
 }
 

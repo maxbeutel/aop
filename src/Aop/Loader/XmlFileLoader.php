@@ -2,7 +2,7 @@
 
 namespace Aop\Loader;
 
-use Aop\Advice;
+use Aop\Aspect;
 use Symfony\Component\DependencyInjection\SimpleXMLElement;
 use Symfony\Component\Config\Resource\FileResource;
 
@@ -56,16 +56,16 @@ class XmlFileLoader extends \Symfony\Component\DependencyInjection\Loader\XmlFil
         foreach ($xml->aop->aspect as $aspect) {
             $serviceId = (string) $aspect['service-id'];
             
-            $advice = new Advice($this->container, $serviceId);
+            $aspectInstance = new Aspect($this->container, $serviceId);
 
             foreach ($aspect->match->children() as $match) {
                 $matcherClassName = '\Aop\Matcher\\' . ucfirst($match->getName()) . 'Matcher';
                 // @TODO throw exception if matcher class not found
                 // @TODO call constructor correctly, dont pass arguments array....
-                $advice->addMatcher(new $matcherClassName($match->getArgumentsAsPhp('argument')));
+                $aspectInstance->addMatcher(new $matcherClassName($match->getArgumentsAsPhp('argument')));
             }
 
-            $this->container->registerAdvice($advice);
+            $this->container->registerAspect($aspectInstance);
         }
     }
 }

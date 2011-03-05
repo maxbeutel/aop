@@ -2,7 +2,7 @@
 
 namespace Aop;
 
-class Advice
+class Aspect
 {
     protected $container;
     protected $serviceId;
@@ -18,6 +18,11 @@ class Advice
     public function addMatcher($matcher)
     {
         $this->matchers[] = $matcher;
+    }
+
+    public function isApplicableFor()
+    {
+        
     }
 }
 
