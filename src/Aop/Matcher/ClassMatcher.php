@@ -4,8 +4,11 @@ namespace  Aop\Matcher;
 
 class ClassMatcher
 {
-    public function __construct()
+    private $pattern;
+
+    public function __construct($pattern)
     {
+        $this->pattern = $pattern;
     }
 
     public function match(\ReflectionClass $r)

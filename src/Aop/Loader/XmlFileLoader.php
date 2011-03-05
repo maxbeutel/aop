@@ -61,8 +61,9 @@ class XmlFileLoader extends \Symfony\Component\DependencyInjection\Loader\XmlFil
             foreach ($aspect->match->children() as $match) {
                 $matcherClassName = '\Aop\Matcher\\' . ucfirst($match->getName()) . 'Matcher';
                 // @TODO throw exception if matcher class not found
-                // @TODO call constructor correctly, dont pass arguments array....
-                $aspectInstance->addMatcher(new $matcherClassName($match->getArgumentsAsPhp('argument')));
+                // @TODO allow more then one constructor argument....
+                list($constructorArgument) = $match->getArgumentsAsPhp('argument');
+                $aspectInstance->addMatcher(new $matcherClassName($constructorArgument));
             }
 
             $this->container->registerAspect($aspectInstance);
