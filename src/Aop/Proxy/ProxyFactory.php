@@ -97,7 +97,7 @@ class ProxyFactory
                 } else {
                     $interceptedParameters = 'array()';
                 }
-                print_r($interceptedParameters);
+                #print_r($interceptedParameters);
 
                 $methods .= $parameterString . ')';
                 $methods .= PHP_EOL . '    {' . PHP_EOL;
@@ -107,9 +107,9 @@ class ProxyFactory
             }
         }
 
-        print "<pre>";
-        print $methods;
-        print "</pre>";
+        #print "<pre>";
+        #print $methods;
+        #print "</pre>";
 
         return $methods;
     }

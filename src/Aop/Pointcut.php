@@ -8,9 +8,9 @@ class Pointcut
     {
     }
 
-    public function execute(PointcutArguments $arguments)
+    public function exec(PointcutArguments $arguments)
     {
-
+        print 'executing ' . __METHOD__;
     }
 }
 
