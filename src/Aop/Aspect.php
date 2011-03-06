@@ -23,6 +23,11 @@ class Aspect
         $this->matchers[] = $matcher;
     }
 
+    public function getService()
+    {
+        return $this->container->get($this->serviceId);
+    }
+
     public function isApplicableFor(\ReflectionClass $r)
     {
         foreach ($this->matchers as $matcher) {
@@ -36,18 +41,22 @@ class Aspect
 
     public function execBeforePointcuts(PointcutArguments $arguments)
     {
-        array_map(function($p) use(&$arguments) {
+        $aspect = $this;
+
+        array_map(function($p) use(&$aspect, &$arguments) {
             if ($p->isApplicableFor($arguments)) {
-                $p->exec($arguments);
+                $p->exec($aspect, $arguments);
             }
         }, $this->beforePointcuts);
     }
 
     public function execAfterPointcuts(PointcutArguments $arguments)
     {
-        array_map(function($p) use(&$arguments) {
+        $aspect = $this;
+
+        array_map(function($p) use(&$aspect, &$arguments) {
             if ($p->isApplicableFor($arguments)) {
-                $p->exec($arguments);
+                $p->exec($aspect, $arguments);
             }
         }, $this->afterPointcuts);
     }

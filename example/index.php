@@ -58,7 +58,7 @@ $controller = $container->get('MyControllerClass');
 $controller->doStuffAction('xy', 13);
 
 
-#$loader = new XmlFileLoader($container, new FileLocator('./_exploring'));
+
 
 
 

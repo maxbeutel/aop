@@ -5,9 +5,11 @@ namespace Aop;
 class Pointcut
 {
     protected $matchers = array();
+    protected $interceptorMethodName;
 
-    public function __construct()
+    public function __construct($interceptorMethodName)
     {
+        $this->interceptorMethodName = $interceptorMethodName;
     }
 
     public function addMatcher($matcher)
@@ -26,9 +28,14 @@ class Pointcut
         return false;
     }
 
-    public function exec(PointcutArguments $arguments)
+    public function exec(Aspect $aspect, PointcutArguments $arguments)
     {
-        print 'executing ' . __METHOD__;
+        $aspect->getService()->{$this->interceptorMethodName}($arguments);
+
+
+        #print_r();
+#
+ #       print 'executing ' . __METHOD__;
     }
 }
 

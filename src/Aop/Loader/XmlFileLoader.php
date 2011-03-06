@@ -68,7 +68,7 @@ class XmlFileLoader extends \Symfony\Component\DependencyInjection\Loader\XmlFil
             }
 
             foreach ($aspect->apply->children() as $pointcut) {
-                $pointcutInstance = new Pointcut();
+                $pointcutInstance = new Pointcut((string)$pointcut->call['method']);
 
                 // @TODO duplicate code, same as above!
                 foreach ($pointcut->match->children() as $match) {
