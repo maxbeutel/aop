@@ -3,6 +3,7 @@
 namespace Aop\Loader;
 
 use Aop\Aspect;
+use Aop\Pointcut;
 use Symfony\Component\DependencyInjection\SimpleXMLElement;
 use Symfony\Component\Config\Resource\FileResource;
 
@@ -64,6 +65,16 @@ class XmlFileLoader extends \Symfony\Component\DependencyInjection\Loader\XmlFil
                 // @TODO allow more then one constructor argument....
                 list($constructorArgument) = $match->getArgumentsAsPhp('argument');
                 $aspectInstance->addMatcher(new $matcherClassName($constructorArgument));
+            }
+
+            foreach ($aspect->apply->children() as $pointcut) {
+                $pointcutInstance = new Pointcut();
+
+                if ($pointcut->getName() === 'before') {
+                    $aspectInstance->registerBeforePointcut($pointcutInstance);
+                } else if ($pointcut->getName() === 'after') {
+                    $aspectInstance->registerAfterPointcut($pointcutInstance);
+                }
             }
 
             $this->container->registerAspect($aspectInstance);

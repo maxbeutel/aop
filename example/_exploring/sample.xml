@@ -62,18 +62,15 @@
         </match>
         <apply>
             <before>
-                <matches>
-                    <methodname-matcher pattern="(*.)Action" />
-                </matches>
-
+                <match>
+                    <methodname>(*.)Action</methodname>
+                </match>
                 <call method="beforeControllerAction" />
             </before>
-
             <after>
-                <matches>
-                    <methodname-matcher pattern="(*.)Action" />
-                </matches>
-
+                <match>
+                    <methodname>(*.)Action</methodname>
+                </match>
                 <call method="afterControllerAction" />
             </after>
         </apply>

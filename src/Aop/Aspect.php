@@ -9,6 +9,9 @@ class Aspect
 
     protected $matchers = array();
 
+    protected $beforePointcuts = array();
+    protected $afterPointcuts = array();
+
     public function __construct($container, $serviceId)
     {
         $this->container = $container;
@@ -37,6 +40,16 @@ class Aspect
 
     public function execAfterPointcuts(PointcutArguments $arguments)
     {
+    }
+
+    public function registerBeforePointcut(Pointcut $pointcut)
+    {
+        $this->beforePointcuts[] = $pointcut;
+    }
+
+    public function registerAfterPointcut(Pointcut $pointcut)
+    {
+        $this->afterPointcuts[] = $pointcut;
     }
 }
 
