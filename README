@@ -1,2 +1,14 @@
 This project is under heavy development and is currently just explorative coding (means: nothing at all works yet).
 
+The ProxyFactory implementation for generating the weave objects makes heavy use of doctrines Proxy Factory implementation:
+https://github.com/doctrine/doctrine2/raw/master/lib/Doctrine/ORM/Proxy/ProxyFactory.php
+
+What explorative coding thus far showed:
+
+- there is a need for a Pointcut and Aspect Namespace with the Matchers in it
+- there is some code dulication in XmlFileLoader
+- there should be a possibility to override the return value in a after or before pointcut via PointcutArguments
+- evaluating the matchers at call-time (especially the Advice matchers) could be rather expensive and is very likely the performance bottleneck
+- there should be the possibility to weave constructors
+- need to write a schema for integrating the aop namespace in the container builders xml format
+- should write some tests...

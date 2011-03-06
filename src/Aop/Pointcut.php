@@ -28,6 +28,8 @@ class Pointcut
         return false;
     }
 
+    // @TODO rather ugly, maybe give container service id to pointcut directly
+    // acutally no need to go over aspect
     public function exec(Aspect $aspect, PointcutArguments $arguments)
     {
         $aspect->getService()->{$this->interceptorMethodName}($arguments);
