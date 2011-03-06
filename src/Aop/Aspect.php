@@ -37,14 +37,18 @@ class Aspect
     public function execBeforePointcuts(PointcutArguments $arguments)
     {
         array_map(function($p) use(&$arguments) {
-            $p->exec($arguments);
+            if ($p->isApplicableFor($arguments)) {
+                $p->exec($arguments);
+            }
         }, $this->beforePointcuts);
     }
 
     public function execAfterPointcuts(PointcutArguments $arguments)
     {
         array_map(function($p) use(&$arguments) {
-            $p->exec($arguments);
+            if ($p->isApplicableFor($arguments)) {
+                $p->exec($arguments);
+            }
         }, $this->afterPointcuts);
     }
 

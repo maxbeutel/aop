@@ -63,13 +63,17 @@
         <apply>
             <before>
                 <match>
-                    <methodname>(*.)Action</methodname>
+                    <method>
+                        <argument>(*.)Action</argument>
+                    </method>
                 </match>
                 <call method="beforeControllerAction" />
             </before>
             <after>
                 <match>
-                    <methodname>(*.)Action</methodname>
+                    <method>
+                        <argument>(*.)Action</argument>
+                    </method>
                 </match>
                 <call method="afterControllerAction" />
             </after>
