@@ -30,6 +30,14 @@ class Aspect
 
         return false;
     }
+
+    public function execBeforePointcuts(PointcutArguments $arguments)
+    {
+    }
+
+    public function execAfterPointcuts(PointcutArguments $arguments)
+    {
+    }
 }
 
 

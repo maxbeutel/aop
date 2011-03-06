@@ -2,11 +2,19 @@
 
 namespace Aop;
 
+use Aop\Proxy\ProxyFactory;
 use Symfony\Component\DependencyInjection\Definition;
 
 class ContainerBuilder extends \Symfony\Component\DependencyInjection\ContainerBuilder
 {
     protected $aspects = array();
+
+    protected $proxyFactory;
+
+    public function setProxyFactory(ProxyFactory $proxyFactory)
+    {
+        $this->proxyFactory = $proxyFactory;
+    }
 
     protected function createService(Definition $definition, $id)
     {
@@ -29,9 +37,12 @@ class ContainerBuilder extends \Symfony\Component\DependencyInjection\ContainerB
         } else {
             $r = new \ReflectionClass($this->getParameterBag()->resolveValue($definition->getClass()));
 
+            // @TODO: currently only one aspect per class can be declared
             foreach ($this->aspects as $aspect) {
                 if ($aspect->isApplicableFor($r)) {
-                    // @TODO: create proxy for object, weave and return!
+                    $proxy = $this->proxyFactory->getProxy($aspect, $r);
+                    return $this->configureService($id, $definition, $proxy);
+                    // @TODO: take constructor into consideration
                 }
             }
 

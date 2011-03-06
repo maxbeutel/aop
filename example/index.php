@@ -18,6 +18,23 @@ interface ControllerInterface
 
 class MyControllerClass implements ControllerInterface
 {
+    public function doStuffAction($someValue, $someOtherValue)
+    {
+        print "doStuffAction called";
+    }
+}
+
+class ControllerAspect
+{
+    public function beforeControllerAction()
+    {
+        print 'beforeControllerAction';
+    }
+
+    public function afterControllerAction()
+    {
+        print 'afterControllerAction';
+    }
 }
 
 
@@ -31,14 +48,18 @@ $loader->register();
 
 
 $container = new Aop\ContainerBuilder();
+$container->setProxyFactory(new Aop\Proxy\ProxyFactory());
 $loader = new Aop\Loader\XmlFileLoader($container, new FileLocator('./_exploring'));
 $loader->load('sample.xml');
 
 
 
-var_dump($container->get('foo'));
+$controller = $container->get('MyControllerClass');
+$controller->doStuffAction('xy', 13);
+
+
 #$loader = new XmlFileLoader($container, new FileLocator('./_exploring'));
-#
+
 
 
 

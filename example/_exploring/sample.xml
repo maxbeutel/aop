@@ -4,8 +4,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
   <services>
-    <service id="foo" class="MyControllerClass" />
-    <service id="baz" class="BazClass" />
+    <service id="MyControllerClass" class="MyControllerClass" />
+    <service id="ControllerAspect" class="ControllerAspect" />
+
+    
     <service id="scope.container" class="FooClass" scope="container" />
     <service id="scope.custom" class="FooClass" scope="custom" />
     <service id="scope.prototype" class="FooClass" scope="prototype" />
@@ -72,7 +74,7 @@
                     <methodname-matcher pattern="(*.)Action" />
                 </matches>
 
-                <call method="beforeControllerAction" />
+                <call method="afterControllerAction" />
             </after>
         </apply>
     </aspect>
