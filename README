@@ -12,3 +12,12 @@ What explorative coding thus far showed:
 - there should be the possibility to weave constructors
 - need to write a schema for integrating the aop namespace in the container builders xml format
 - should write some tests...
+
+
+TODO:
+
+move pointcut arguments to pointcut namespace
+also enable callbacks instead of simple service instances
+add interface for pointcut and aspect matcher
+performance/caching????
+
