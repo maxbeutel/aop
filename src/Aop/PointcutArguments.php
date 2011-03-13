@@ -2,6 +2,7 @@
 
 namespace Aop;
 
+// @TODO move to pointcut namespace
 class PointcutArguments
 {
     private $weavedObject;

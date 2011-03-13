@@ -1,8 +1,10 @@
 <?php
 
-namespace Aop\Matcher;
+namespace Aop\Aspect\Matcher;
 
-class InterfaceMatcher
+use ReflectionClass;
+
+class InterfaceImplementation
 {
     private $interface;
 
@@ -11,7 +13,7 @@ class InterfaceMatcher
         $this->interface = $interface;
     }
 
-    public function match(\ReflectionClass $r)
+    public function match(ReflectionClass $r)
     {
         return $r->implementsInterface($this->interface);
     }

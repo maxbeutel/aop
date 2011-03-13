@@ -1,19 +1,18 @@
 <?php
 
-namespace Aop\Matcher;
+namespace Aop\Pointcut\Matcher;
 
 use Aop\PointcutArguments;
 
-/**
- * @TODO this is a pointcut matcher, move to own namespace!
- */
-class MethodMatcher
+class MethodName
 {
     private $pattern;
+    private $useRegex;
 
-    public function __construct($pattern)
+    public function __construct($pattern, $useRegex)
     {
         $this->pattern = $pattern;
+        $this->useRegex = $useRegex;
     }
 
     public function match(PointcutArguments $arguments)

@@ -5,6 +5,7 @@ namespace Aop;
 use Aop\Proxy\ProxyFactory;
 use Aop\Aspect;
 use Aop\Aspect\SelfRegistering;
+use Aop\Pointcut;
 use Aop\ContainerBuilder\AspectConfiguration;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ContainerBuilder as BaseContainerBuilder;
@@ -78,11 +79,29 @@ class ContainerBuilder extends BaseContainerBuilder
 
     protected function addConfiguredAspect(AspectConfiguration $aspectConfiguration)
     {
-        $aspectInstance = new Aspect($this, $aspectConfiguration->getService());
+        $aspect = new Aspect($this, $aspectConfiguration->getService());
 
         foreach ($aspectConfiguration->getMatcher() as $matcher) {
-            $aspectInstance->addMatcher($matcher);
+            $aspect->addMatcher($matcher);
         }
+
+        foreach ($aspectConfiguration->getPointcutConfigurations() as $pointcutConfiguration) {
+            $pointcut = new Pointcut($pointcutConfiguration->getCallback());
+
+            foreach ($pointcutConfiguration->getMatcher() as $matcher) {
+                $pointcut->addMatcher($matcher);
+            }
+
+            if ($pointcutConfiguration->applyBefore()) {
+                $aspect->registerBeforePointcut($pointcut);
+            }
+
+            if ($pointcutConfiguration->applyAfter()) {
+                $aspect->registerAfterPointcut($pointcut);
+            }
+        }
+
+        $this->aspects[] = $aspect;
     }
 }
 

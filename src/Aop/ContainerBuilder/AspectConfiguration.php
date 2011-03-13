@@ -2,6 +2,9 @@
 
 namespace Aop\ContainerBuilder;
 
+use Aop\Aspect\Matcher\ClassName;
+use Aop\Aspect\Matcher\InterfaceImplementation;
+
 class AspectConfiguration
 {
     protected $service;
@@ -26,6 +29,11 @@ class AspectConfiguration
         return $this->matcher;
     }
 
+    public function getPointcutConfigurations()
+    {
+        return $this->pointcutConfigurations;
+    }
+
     public function weave()
     {
         return $this;
@@ -33,6 +41,13 @@ class AspectConfiguration
 
     public function className($className, $useRegex = false)
     {
+        $this->matcher[] = new ClassName($className, $useRegex);
+        return $this;
+    }
+
+    public function interfaceImplementor($interfaceName)
+    {
+        $this->matcher[] = new InterfaceImplementation($interfaceName);
         return $this;
     }
 
