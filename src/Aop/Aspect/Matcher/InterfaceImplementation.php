@@ -2,20 +2,21 @@
 
 namespace Aop\Aspect\Matcher;
 
+use Aop\Aspect\Matcher;
 use ReflectionClass;
 
-class InterfaceImplementation
+class InterfaceImplementation implements Matcher
 {
-    private $interface;
+    protected $interfaceName;
 
-    public function __construct($interface)
+    public function __construct($interfaceName)
     {
-        $this->interface = $interface;
+        $this->interfaceName = $interfaceName;
     }
 
     public function match(ReflectionClass $r)
     {
-        return $r->implementsInterface($this->interface);
+        return $r->implementsInterface($this->interfaceName);
     }
 }
 

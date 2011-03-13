@@ -2,9 +2,10 @@
 
 namespace Aop\Aspect\Matcher;
 
+use Aop\Aspect\Matcher;
 use ReflectionClass;
 
-class ClassName
+class ClassName implements Matcher
 {
     protected $pattern;
     protected $useRegex;
