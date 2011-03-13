@@ -1,9 +1,8 @@
 <?php
 
-namespace Aop;
+namespace Aop\Pointcut;
 
-// @TODO move to pointcut namespace
-class PointcutArguments
+class Arguments
 {
     private $weavedObject;
     private $method;

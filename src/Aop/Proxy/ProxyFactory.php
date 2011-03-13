@@ -101,9 +101,9 @@ class ProxyFactory
 
                 $methods .= $parameterString . ')';
                 $methods .= PHP_EOL . '    {' . PHP_EOL;
-                $methods .= PHP_EOL . '    $this->__aspect->execBeforePointcuts(new \Aop\PointcutArguments($this, __METHOD__, ' . $interceptedParameters . '));' . PHP_EOL;
+                $methods .= PHP_EOL . '    $this->__aspect->execBeforePointcuts(new \Aop\Pointcut\Arguments($this, __METHOD__, ' . $interceptedParameters . '));' . PHP_EOL;
                 $methods .= '              parent::' . $method->getName() . '(' . $argumentString . ');';
-                $methods .= PHP_EOL . '    $this->__aspect->execAfterPointcuts(new \Aop\PointcutArguments($this, __METHOD__, ' . $interceptedParameters . '));' . PHP_EOL;
+                $methods .= PHP_EOL . '    $this->__aspect->execAfterPointcuts(new \Aop\Pointcut\Arguments($this, __METHOD__, ' . $interceptedParameters . '));' . PHP_EOL;
                 $methods .= PHP_EOL . '    }' . PHP_EOL;
             }
         }

@@ -2,7 +2,7 @@
 
 namespace Aop\Pointcut\Matcher;
 
-use Aop\PointcutArguments;
+use Aop\Pointcut\Arguments;
 use Aop\Pointcut\Matcher;
 
 class MethodName implements Matcher
@@ -16,7 +16,7 @@ class MethodName implements Matcher
         $this->useRegex = $useRegex;
     }
 
-    public function match(PointcutArguments $arguments)
+    public function match(Arguments $arguments)
     {
         if ($this->useRegex) {
             return (bool)preg_match('#' . $this->pattern . '#i', $arguments->getMethod());

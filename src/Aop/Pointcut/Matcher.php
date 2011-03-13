@@ -2,9 +2,9 @@
 
 namespace Aop\Pointcut;
 
-use Aop\PointcutArguments;
+use Aop\Pointcut\Arguments;
 
 interface Matcher
 {
-    function match(PointcutArguments $arguments);
+    function match(Arguments $arguments);
 }

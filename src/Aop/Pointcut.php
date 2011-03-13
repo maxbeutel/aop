@@ -2,6 +2,8 @@
 
 namespace Aop;
 
+use Aop\Pointcut\Arguments;
+
 class Pointcut
 {
     protected $matchers = array();
@@ -17,7 +19,7 @@ class Pointcut
         $this->matchers[] = $matcher;
     }
 
-    public function isApplicableFor(PointcutArguments $arguments)
+    public function isApplicableFor(Arguments $arguments)
     {
         foreach ($this->matchers as $matcher) {
             if ($matcher->match($arguments)) {
@@ -30,7 +32,7 @@ class Pointcut
 
     // @TODO rather ugly, maybe give container service id to pointcut directly
     // acutally no need to go over aspect
-    public function exec(Aspect $aspect, PointcutArguments $arguments)
+    public function exec(Aspect $aspect, Arguments $arguments)
     {
         $aspect->getService()->{$this->interceptorMethodName}($arguments);
 

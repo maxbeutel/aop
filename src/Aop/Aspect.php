@@ -2,6 +2,7 @@
 
 namespace Aop;
 
+use Aop\Pointcut\Arguments;
 use ReflectionClass;
 
 class Aspect
@@ -40,7 +41,7 @@ class Aspect
         return false;
     }
 
-    public function execBeforePointcuts(PointcutArguments $arguments)
+    public function execBeforePointcuts(Arguments $arguments)
     {
         $aspect = $this;
 
@@ -51,7 +52,7 @@ class Aspect
         }, $this->beforePointcuts);
     }
 
-    public function execAfterPointcuts(PointcutArguments $arguments)
+    public function execAfterPointcuts(Arguments $arguments)
     {
         $aspect = $this;
 
