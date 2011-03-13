@@ -6,11 +6,16 @@ use Closure;
 
 class PointcutConfiguration
 {
-    protected $adviceConfiguration;
+    const POINTCUT_TYPE_BEFORE = 1;
+    const POINTCUT_TYPE_AFTER = 2;
 
-    public function __construct($adviceConfiguration)
+    protected $adviceConfiguration;
+    protected $pointcutType;
+
+    public function __construct($adviceConfiguration, $pointcutType)
     {
         $this->adviceConfiguration = $adviceConfiguration;
+        $this->pointcutType = $pointcutType;
     }
 
     public function methodName($methodName, $useRegex = false)

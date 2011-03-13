@@ -11,9 +11,10 @@ use ReflectionClass;
 
 class ContainerBuilder extends \Symfony\Component\DependencyInjection\ContainerBuilder
 {
-    protected $aspects = array();
-
     protected $proxyFactory;
+
+    protected $aspects = array();
+    protected $aspectConfigurations = array();
 
     public function setProxyFactory(ProxyFactory $proxyFactory)
     {
@@ -59,11 +60,23 @@ class ContainerBuilder extends \Symfony\Component\DependencyInjection\ContainerB
     public function addAspect(SelfRegistering $aspect)
     {
         $aspect->register($this);
+
+        $aspectConfiguration = array_shift($this->aspectConfigurations);
+        $this->addConfiguredAspect($aspectConfiguration);
+
+        return $this;
     }
 
     public function aspect(SelfRegistering $aspect)
     {
-        return new AspectConfiguration($this, $aspect);
+        $aspectConfiguration = new AspectConfiguration($this, $aspect);
+        $this->aspectConfigurations[] = $aspectConfiguration;
+        return $aspectConfiguration;
+    }
+
+    protected function addConfiguredAspect(AspectConfiguration $aspectConfiguration)
+    {
+        
     }
 }
 
