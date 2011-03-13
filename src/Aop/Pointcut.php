@@ -35,11 +35,6 @@ class Pointcut
     public function exec(Aspect $aspect, Arguments $arguments)
     {
         $aspect->getService()->{$this->interceptorMethodName}($arguments);
-
-
-        #print_r();
-#
- #       print 'executing ' . __METHOD__;
     }
 }
 
