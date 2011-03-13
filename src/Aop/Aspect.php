@@ -2,20 +2,26 @@
 
 namespace Aop;
 
+use ReflectionClass;
+
 class Aspect
 {
     protected $container;
-    protected $serviceId;
+    protected $service;
 
     protected $matchers = array();
 
     protected $beforePointcuts = array();
     protected $afterPointcuts = array();
 
-    public function __construct($container, $serviceId)
+    public function __construct($service)
     {
-        $this->container = $container;
-        $this->serviceId = $serviceId;
+        $this->service = $service;
+    }
+
+    public function getService()
+    {
+        return $this->service;
     }
 
     public function addMatcher($matcher)
@@ -23,12 +29,7 @@ class Aspect
         $this->matchers[] = $matcher;
     }
 
-    public function getService()
-    {
-        return $this->container->get($this->serviceId);
-    }
-
-    public function isApplicableFor(\ReflectionClass $r)
+    public function isApplicableFor(ReflectionClass $r)
     {
         foreach ($this->matchers as $matcher) {
             if ($matcher->match($r)) {

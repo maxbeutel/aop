@@ -17,7 +17,7 @@ class MethodName
 
     public function match(PointcutArguments $arguments)
     {
-        return (bool) preg_match('#' . $this->pattern . '#i', $arguments->getMethod());
+        return (bool)preg_match('#' . $this->pattern . '#i', $arguments->getMethod());
     }
 }
 

@@ -79,7 +79,7 @@ class ContainerBuilder extends BaseContainerBuilder
 
     protected function addConfiguredAspect(AspectConfiguration $aspectConfiguration)
     {
-        $aspect = new Aspect($this, $aspectConfiguration->getService());
+        $aspect = new Aspect($aspectConfiguration->getService());
 
         foreach ($aspectConfiguration->getMatcher() as $matcher) {
             $aspect->addMatcher($matcher);
