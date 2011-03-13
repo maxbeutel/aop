@@ -16,8 +16,6 @@ What explorative coding thus far showed:
 
 TODO:
 
-move pointcut arguments to pointcut namespace
 also enable callbacks instead of simple service instances
-add interface for pointcut and aspect matcher
 performance/caching????
 
