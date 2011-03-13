@@ -3,13 +3,15 @@
 namespace Aop;
 
 use Aop\Proxy\ProxyFactory;
+use Aop\Aspect;
 use Aop\Aspect\SelfRegistering;
 use Aop\ContainerBuilder\AspectConfiguration;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\ContainerBuilder as BaseContainerBuilder;
 use RuntimeException;
 use ReflectionClass;
 
-class ContainerBuilder extends \Symfony\Component\DependencyInjection\ContainerBuilder
+class ContainerBuilder extends BaseContainerBuilder
 {
     protected $proxyFactory;
 
@@ -69,14 +71,18 @@ class ContainerBuilder extends \Symfony\Component\DependencyInjection\ContainerB
 
     public function aspect(SelfRegistering $aspect)
     {
-        $aspectConfiguration = new AspectConfiguration($this, $aspect);
+        $aspectConfiguration = new AspectConfiguration($aspect);
         $this->aspectConfigurations[] = $aspectConfiguration;
         return $aspectConfiguration;
     }
 
     protected function addConfiguredAspect(AspectConfiguration $aspectConfiguration)
     {
-        
+        $aspectInstance = new Aspect($this, $aspectConfiguration->getService());
+
+        foreach ($aspectConfiguration->getMatcher() as $matcher) {
+            $aspectInstance->addMatcher($matcher);
+        }
     }
 }
 

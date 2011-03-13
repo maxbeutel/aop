@@ -9,12 +9,12 @@ class PointcutConfiguration
     const POINTCUT_TYPE_BEFORE = 1;
     const POINTCUT_TYPE_AFTER = 2;
 
-    protected $adviceConfiguration;
+    protected $aspectConfiguration;
     protected $pointcutType;
 
-    public function __construct($adviceConfiguration, $pointcutType)
+    public function __construct(AspectConfiguration $aspectConfiguration, $pointcutType)
     {
-        $this->adviceConfiguration = $adviceConfiguration;
+        $this->aspectConfiguration = $aspectConfiguration;
         $this->pointcutType = $pointcutType;
     }
 
@@ -32,12 +32,12 @@ class PointcutConfiguration
     // Put in Interface
     public function before()
     {
-        return $this->adviceConfiguration->before();
+        return $this->aspectConfiguration->before();
     }
 
     public function after()
     {
-        return $this->adviceConfiguration->after();
+        return $this->aspectConfiguration->after();
     }
 }
 

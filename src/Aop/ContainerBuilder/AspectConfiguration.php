@@ -2,25 +2,52 @@
 
 namespace Aop\ContainerBuilder;
 
-use Aop\ContainerBuilder;
-
 class AspectConfiguration
 {
-    protected $container;
-    protected $aspect;
+    protected $service;
 
-    protected $adviceConfiguration;
+    protected $pointcutConfigurations = array();
+    protected $matcher = array();
 
-    public function __construct(ContainerBuilder $container, $aspect)
+
+    // @TODO service might also be a callback instead of class instance
+    public function __construct($service)
     {
-        $this->container = $container;
-        $this->aspect = $aspect;
+        $this->service = $service;
+    }
+
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    public function getMatcher()
+    {
+        return $this->matcher;
     }
 
     public function weave()
     {
-        $this->adviceConfiguration = new AdviceConfiguration($this);
-        return $this->adviceConfiguration;
+        return $this;
+    }
+
+    public function className($className, $useRegex = false)
+    {
+        return $this;
+    }
+
+    public function before()
+    {
+        $pointcutConfiguration = new PointcutConfiguration($this, PointcutConfiguration::POINTCUT_TYPE_BEFORE);
+        $this->pointcutConfigurations[] = $pointcutConfiguration;
+        return $pointcutConfiguration;
+    }
+
+    public function after()
+    {
+        $pointcutConfiguration = new PointcutConfiguration($this, PointcutConfiguration::POINTCUT_TYPE_AFTER);
+        $this->pointcutConfigurations[] = $pointcutConfiguration;
+        return $pointcutConfiguration;
     }
 }
 
