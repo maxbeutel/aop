@@ -8,6 +8,7 @@
     <service id="ControllerAspect" class="ControllerAspect" />
   </services>
 
+<!--
   <aop>
     <aspect service-id="ControllerAspect">
         <match>
@@ -38,4 +39,5 @@
         </apply>
     </aspect>
   </aop>
+  -->
 </container>

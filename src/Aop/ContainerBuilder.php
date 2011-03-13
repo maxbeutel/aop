@@ -3,7 +3,10 @@
 namespace Aop;
 
 use Aop\Proxy\ProxyFactory;
+use Aop\Aspect\SelfRegistering;
 use Symfony\Component\DependencyInjection\Definition;
+use RuntimeException;
+use ReflectionClass;
 
 class ContainerBuilder extends \Symfony\Component\DependencyInjection\ContainerBuilder
 {
@@ -30,12 +33,12 @@ class ContainerBuilder extends \Symfony\Component\DependencyInjection\ContainerB
             } elseif (null !== $definition->getFactoryService()) {
                 $factory = $this->get($this->getParameterBag()->resolveValue($definition->getFactoryService()));
             } else {
-                throw new \RuntimeException('Cannot create service from factory method without a factory service or factory class.');
+                throw new RuntimeException('Cannot create service from factory method without a factory service or factory class.');
             }
 
             $service = call_user_func_array(array($factory, $definition->getFactoryMethod()), $arguments);
         } else {
-            $r = new \ReflectionClass($this->getParameterBag()->resolveValue($definition->getClass()));
+            $r = new ReflectionClass($this->getParameterBag()->resolveValue($definition->getClass()));
 
             // @TODO: currently only one aspect per class can be declared
             foreach ($this->aspects as $aspect) {
@@ -52,9 +55,14 @@ class ContainerBuilder extends \Symfony\Component\DependencyInjection\ContainerB
         return $this->configureService($id, $definition, $service);
     }
 
-    public function registerAspect(Aspect $aspects)
+    public function addAspect(SelfRegistering $aspect)
     {
-        $this->aspects[] = $aspects;
+        $aspect->register($this);
+    }
+
+    public function aspect(SelfRegistering $aspect)
+    {
+        
     }
 }
 

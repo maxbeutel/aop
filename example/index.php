@@ -9,7 +9,20 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\Loader;
 use Symfony\Component\Config\Loader\LoaderResolver;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\Config\FileLocator;
+
+
+
+// Setup Symfony Autoloading
+$loader = new UniversalClassLoader();
+$loader->registerNamespaces(array(
+    'Symfony' => __DIR__.'/../../symfony-src/src',
+    'Aop'     => __DIR__.'/../src',
+));
+$loader->register();
+
+
 
 interface ControllerInterface
 {
@@ -24,7 +37,7 @@ class MyControllerClass implements ControllerInterface
     }
 }
 
-class ControllerAspect
+class ControllerAspect implements Aop\Aspect\SelfRegistering
 {
     public function beforeControllerAction()
     {
@@ -35,25 +48,30 @@ class ControllerAspect
     {
         print 'afterControllerAction';
     }
+
+    public function register(Aop\ContainerBuilder $container)
+    {
+        $container->aspect($this)->weave()->className('Controller')
+                  ->before()->methodName('Action')->call('beforeControllerAction')
+                  ->after()->methodName('Action')->call('afterControllerAction');
+    }
 }
 
 
 
-$loader = new UniversalClassLoader();
-$loader->registerNamespaces(array(
-    'Symfony' => __DIR__.'/../../symfony-src/src',
-    'Aop'     => __DIR__.'/../src',
-));
-$loader->register();
 
-
+// Create Builder
 $container = new Aop\ContainerBuilder();
 $container->setProxyFactory(new Aop\Proxy\ProxyFactory());
-$loader = new Aop\Loader\XmlFileLoader($container, new FileLocator('./_exploring'));
+$loader = new XmlFileLoader($container, new FileLocator('./_exploring'));
 $loader->load('sample.xml');
 
 
+// register Aspects
+$container->addAspect(new ControllerAspect());
 
+
+// Test get controller instance from container
 $controller = $container->get('MyControllerClass');
 $controller->doStuffAction('xy', 13);
 
