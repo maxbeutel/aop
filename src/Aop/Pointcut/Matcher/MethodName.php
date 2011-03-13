@@ -3,8 +3,9 @@
 namespace Aop\Pointcut\Matcher;
 
 use Aop\PointcutArguments;
+use Aop\Pointcut\Matcher;
 
-class MethodName
+class MethodName implements Matcher
 {
     private $pattern;
     private $useRegex;
