@@ -4,6 +4,7 @@ namespace Aop;
 
 use Aop\Proxy\ProxyFactory;
 use Aop\Aspect\SelfRegistering;
+use Aop\ContainerBuilder\AspectConfiguration;
 use Symfony\Component\DependencyInjection\Definition;
 use RuntimeException;
 use ReflectionClass;
@@ -62,7 +63,7 @@ class ContainerBuilder extends \Symfony\Component\DependencyInjection\ContainerB
 
     public function aspect(SelfRegistering $aspect)
     {
-        
+        return new AspectConfiguration($this, $aspect);
     }
 }
 
