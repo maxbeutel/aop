@@ -17,7 +17,11 @@ class ClassName
 
     public function match(ReflectionClass $r)
     {
-        return (bool)preg_match('#' . $this->pattern . '#i', $r->getName());
+        if ($this->useRegex) {
+            return (bool)preg_match('#' . $this->pattern . '#i', $r->getName());
+        }
+
+        return (bool)stristr($r->getName(), $this->pattern);
     }
 }
 
