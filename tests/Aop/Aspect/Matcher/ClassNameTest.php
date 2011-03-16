@@ -31,8 +31,20 @@ class ClassNameTest extends PHPUnit_Framework_TestCase
 
     public function testMatchRegex()
     {
-        $matcher = new ClassName('_(*.?)_', false);
+        $matcher = new ClassName('_([a-z]+)_', true);
         $r = new \ReflectionClass('PHPUnit_Framework_TestCase');
         $this->assertTrue($matcher->match($r));
+
+        $matcher = new ClassName('TestCase$', true);
+        $r = new \ReflectionClass('PHPUnit_Framework_TestCase');
+        $this->assertTrue($matcher->match($r));
+    }
+
+    public function testDoNotMatchRegex()
+    {
+        $matcher = new ClassName('_([0-9]+)_', true);
+        $r = new \ReflectionClass('PHPUnit_Framework_TestCase');
+        $this->assertFalse($matcher->match($r));
+        
     }
 }
