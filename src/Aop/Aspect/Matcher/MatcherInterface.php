@@ -1,10 +1,10 @@
 <?php
 
-namespace Aop\Aspect;
+namespace Aop\Aspect\Matcher;
 
 use ReflectionClass;
 
-interface Matcher
+interface MatcherInterface
 {
     function match(ReflectionClass $r);
 }

@@ -2,10 +2,9 @@
 
 namespace Aop\Aspect\Matcher;
 
-use Aop\Aspect\Matcher;
 use ReflectionClass;
 
-class InterfaceImplementation implements Matcher
+class InterfaceImplementation implements MatcherInterface
 {
     protected $interfaceName;
 
