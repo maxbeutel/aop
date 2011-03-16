@@ -5,8 +5,6 @@ https://github.com/doctrine/doctrine2/raw/master/lib/Doctrine/ORM/Proxy/ProxyFac
 
 What explorative coding thus far showed:
 
-- there is a need for a Pointcut and Aspect Namespace with the Matchers in it
-- there is some code dulication in XmlFileLoader
 - there should be a possibility to override the return value in a after or before pointcut via PointcutArguments
 - evaluating the matchers at call-time (especially the Advice matchers) could be rather expensive and is very likely the performance bottleneck
 - there should be the possibility to weave constructors
@@ -18,4 +16,5 @@ TODO:
 
 also enable callbacks instead of simple service instances
 performance/caching????
-
+remove trailing ...Interface in interface names
+what to do about private createService method and missing configureService method in symfony master?
