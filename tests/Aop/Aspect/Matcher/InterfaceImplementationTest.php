@@ -2,9 +2,6 @@
 
 namespace Aop\Aspect\Matcher;
 
-require_once './src/Aop/Aspect/Matcher/MatcherInterface.php';
-require_once './src/Aop/Aspect/Matcher/InterfaceImplementation.php';
-
 use PHPUnit_Framework_Testcase;
 use ReflectionClass;
 

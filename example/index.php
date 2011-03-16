@@ -1,8 +1,7 @@
 <?php
 
-require_once __DIR__.'/../../symfony-src/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+require_once realpath(__DIR__ . '/../autoload.php');
 
-use Symfony\Component\ClassLoader\UniversalClassLoader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -14,19 +13,9 @@ use Symfony\Component\Config\FileLocator;
 
 
 
-// Setup Symfony Autoloading
-$loader = new UniversalClassLoader();
-$loader->registerNamespaces(array(
-    'Symfony' => __DIR__.'/../../symfony-src/src',
-    'Aop'     => __DIR__.'/../src',
-));
-$loader->register();
-
-
 
 interface ControllerInterface
 {
-
 }
 
 class MyControllerClass implements ControllerInterface
