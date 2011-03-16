@@ -1,43 +1,11 @@
 <?xml version="1.0" ?>
 
-<container xmlns="http://www.symfony-project.org/schema/dic/services"
+<container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
   <services>
     <service id="MyControllerClass" class="MyControllerClass" />
     <service id="ControllerAspect" class="ControllerAspect" />
   </services>
-
-<!--
-  <aop>
-    <aspect service-id="ControllerAspect">
-        <match>
-            <class>
-                <argument>Controller</argument>
-            </class>
-            <interface>
-                <argument>ControllerInterface</argument>
-            </interface>
-        </match>
-        <apply>
-            <before>
-                <match>
-                    <method>
-                        <argument>Action</argument>
-                    </method>
-                </match>
-                <call method="beforeControllerAction" />
-            </before>
-            <after>
-                <match>
-                    <method>
-                        <argument>Action</argument>
-                    </method>
-                </match>
-                <call method="afterControllerAction" />
-            </after>
-        </apply>
-    </aspect>
-  </aop>
-  -->
 </container>
