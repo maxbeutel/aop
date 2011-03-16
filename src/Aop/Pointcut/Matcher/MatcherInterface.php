@@ -1,10 +1,10 @@
 <?php
 
-namespace Aop\Pointcut;
+namespace Aop\Pointcut\Matcher;
 
 use Aop\Pointcut\Arguments;
 
-interface Matcher
+interface MatcherInterface
 {
     function match(Arguments $arguments);
 }
