@@ -5,7 +5,7 @@ namespace Aop\ContainerBuilder;
 use Aop\Pointcut\Matcher\MethodName;
 use Closure;
 
-class PointcutConfiguration
+class PointcutConfiguration implements PointcutConfigurationInterface
 {
     const POINTCUT_TYPE_BEFORE = 1;
     const POINTCUT_TYPE_AFTER = 2;

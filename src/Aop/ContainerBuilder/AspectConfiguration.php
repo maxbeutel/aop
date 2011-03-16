@@ -5,7 +5,7 @@ namespace Aop\ContainerBuilder;
 use Aop\Aspect\Matcher\ClassName;
 use Aop\Aspect\Matcher\InterfaceImplementation;
 
-class AspectConfiguration
+class AspectConfiguration implements PointcutConfigurationInterface
 {
     protected $service;
 
