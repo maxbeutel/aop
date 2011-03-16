@@ -28,4 +28,11 @@ class ClassNameTest extends PHPUnit_Framework_TestCase
         $r = new \ReflectionClass('stdClass');
         $this->assertFalse($matcher->match($r));
     }
+
+    public function testMatchRegex()
+    {
+        $matcher = new ClassName('_(*.?)_', false);
+        $r = new \ReflectionClass('PHPUnit_Framework_TestCase');
+        $this->assertTrue($matcher->match($r));
+    }
 }
