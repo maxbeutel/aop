@@ -49,7 +49,8 @@ class ContainerBuilder extends BaseContainerBuilder
             foreach ($this->aspects as $aspect) {
                 if ($aspect->isApplicableFor($r)) {
                     $proxy = $this->proxyFactory->getProxy($aspect, $r);
-                    return $this->configureService($id, $definition, $proxy);
+                    return $proxy;
+                    #return $this->configureService($id, $definition, $proxy);
                     // @TODO: take constructor into consideration
                 }
             }
@@ -57,7 +58,8 @@ class ContainerBuilder extends BaseContainerBuilder
             $service = null === $r->getConstructor() ? $r->newInstance() : $r->newInstanceArgs($arguments);
         }
 
-        return $this->configureService($id, $definition, $service);
+        return $service;
+        #return $this->configureService($id, $definition, $service);
     }
 
     public function addAspect(SelfRegistering $aspect)
