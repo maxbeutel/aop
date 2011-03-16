@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Aop\Aspect\Matcher;
 
 require_once './src/Aop/Aspect/Matcher/MatcherInterface.php';
