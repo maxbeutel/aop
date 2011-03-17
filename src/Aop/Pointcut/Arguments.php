@@ -4,9 +4,9 @@ namespace Aop\Pointcut;
 
 class Arguments
 {
-    private $weavedObject;
-    private $method;
-    private $interceptedParameters;
+    protected $weavedObject;
+    protected $method;
+    protected $interceptedParameters;
 
     public function __construct($weavedObject, $method, array $interceptedParameters)
     {
@@ -15,9 +15,21 @@ class Arguments
         $this->interceptedParameters = $interceptedParameters;
     }
 
-    public function getMethod()
+    public function getWeavedObject()
     {
-        return $this->method;
+        return $this->weavedObject;
+    }
+
+    public function getMethodName()
+    {
+        list($className, $methodName) = explode('::', $this->method);
+        return $methodName;
+    }
+
+    public function getClassName()
+    {
+        list($className, $methodName) = explode('::', $this->method);
+        return $className;
     }
 
     public function getInterceptedParameters()
