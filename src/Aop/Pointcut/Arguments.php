@@ -2,17 +2,19 @@
 
 namespace Aop\Pointcut;
 
+use InvalidArgumentException;
+
 class Arguments
 {
     protected $weavedObject;
     protected $method;
-    protected $interceptedParameters;
+    protected $interceptedArguments;
 
-    public function __construct($weavedObject, $method, array $interceptedParameters)
+    public function __construct($weavedObject, $method, array $interceptedArguments)
     {
         $this->weavedObject = $weavedObject;
         $this->method = $method;
-        $this->interceptedParameters = $interceptedParameters;
+        $this->interceptedArguments = $interceptedArguments;
     }
 
     public function getWeavedObject()
@@ -34,7 +36,21 @@ class Arguments
 
     public function getInterceptedParameters()
     {
-        return $this->interceptedParameters;
+        return $this->interceptedArguments;
+    }
+
+    public function getInterceptedArgument($name)
+    {
+        if (!$this->interceptedArgumentIsSet($name)) {
+            throw new InvalidArgumentException('Argument by name ' . $name . ' not found');
+        }
+
+        return $this->interceptedArguments[$name];
+    }
+
+    public function interceptedArgumentIsSet($name)
+    {
+        return isset($this->interceptedArguments[$name]);
     }
 }
 
