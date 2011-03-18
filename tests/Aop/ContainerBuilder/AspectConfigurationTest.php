@@ -13,9 +13,25 @@ class AspectConfigurationTest extends PHPUnit_Framework_Testcase
         $aspectConfiguration = new AspectConfiguration($service);
 
         $this->assertEquals($service, $aspectConfiguration->getService());
-        
-        $this->assertEquals(0, count($aspectConfiguration->getMatcher()));
+    }
+
+    public function testInterfaceImplementorCondition()
+    {
+        $service = new stdClass();
+        $aspectConfiguration = new AspectConfiguration($service);
         $aspectConfiguration->interfaceImplementor('SomeInterface');
-        $this->assertEquals(1, count($aspectConfiguration->getMatcher()));
+
+        list($matcher) = $aspectConfiguration->getMatcher();
+        $this->assertType('Aop\Aspect\Matcher\InterfaceImplementation', $matcher);
+    }
+
+    public function testClassNameCondition()
+    {
+        $service = new stdClass();
+        $aspectConfiguration = new AspectConfiguration($service);
+        $aspectConfiguration->className('SomeClass');
+
+        list($matcher) = $aspectConfiguration->getMatcher();
+        $this->assertType('Aop\Aspect\Matcher\ClassName', $matcher);
     }
 }
