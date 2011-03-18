@@ -21,7 +21,7 @@ class MethodName implements MatcherInterface
             return (bool)preg_match('#' . $this->pattern . '#i', $arguments->getMethod());
         }
 
-        return (bool)stristr($arguments->getMethod(), $this->pattern);
+        return (bool)stristr($arguments->getMethodName(), $this->pattern);
     }
 }
 
