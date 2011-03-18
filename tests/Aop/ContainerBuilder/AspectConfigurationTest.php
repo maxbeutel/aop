@@ -39,21 +39,23 @@ class AspectConfigurationTest extends PHPUnit_Framework_Testcase
     {
         $service = new stdClass();
         $aspectConfiguration = new AspectConfiguration($service);
-        $aspectConfiguration->before();
+        $returnedPointcutConfiguration = $aspectConfiguration->before();
 
         list($pointcutConfiguration) = $aspectConfiguration->getPointcutConfigurations();
         $this->assertType('Aop\ContainerBuilder\PointcutConfiguration', $pointcutConfiguration);
         $this->assertTrue($pointcutConfiguration->applyBefore());
+        $this->assertEquals($returnedPointcutConfiguration, $pointcutConfiguration);
     }
 
     public function testAfterPointcutConfiguration()
     {
         $service = new stdClass();
         $aspectConfiguration = new AspectConfiguration($service);
-        $aspectConfiguration->after();
+        $returnedPointcutConfiguration = $aspectConfiguration->after();
 
         list($pointcutConfiguration) = $aspectConfiguration->getPointcutConfigurations();
         $this->assertType('Aop\ContainerBuilder\PointcutConfiguration', $pointcutConfiguration);
         $this->assertTrue($pointcutConfiguration->applyAfter());
+        $this->assertEquals($returnedPointcutConfiguration, $pointcutConfiguration);
     }
 }
