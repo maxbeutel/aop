@@ -13,6 +13,9 @@ class AspectConfigurationTest extends PHPUnit_Framework_Testcase
         $aspectConfiguration = new AspectConfiguration($service);
 
         $this->assertEquals($service, $aspectConfiguration->getService());
+        $this->assertEquals($aspectConfiguration, $aspectConfiguration->weave());
+        $this->assertEquals($aspectConfiguration, $aspectConfiguration->className('SomeClass'));
+        $this->assertEquals($aspectConfiguration, $aspectConfiguration->interfaceImplementor('SomeInterface'));
     }
 
     public function testInterfaceImplementorCondition()
