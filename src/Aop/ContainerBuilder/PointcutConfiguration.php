@@ -4,6 +4,7 @@ namespace Aop\ContainerBuilder;
 
 use Aop\Pointcut\Matcher\MethodName;
 use Closure;
+use InvalidArgumentException;
 
 class PointcutConfiguration implements PointcutConfigurationInterface
 {
@@ -40,6 +41,10 @@ class PointcutConfiguration implements PointcutConfigurationInterface
 
     public function call($callback)
     {
+        if (!is_callable($callback)) {
+            throw new InvalidArgumentException('Invalid callback supplied');
+        }
+
         $this->callback = $callback;
         return $this;
     }
