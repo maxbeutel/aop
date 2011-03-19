@@ -64,6 +64,9 @@ $container->addAspect(new ControllerAspect());
 $controller = $container->get('MyControllerClass');
 $controller->doStuffAction('xy', 13);
 
+$controller2 = $container->get('MyControllerClass');
+$controller2->doStuffAction('xy', 13);
+
 
 
 

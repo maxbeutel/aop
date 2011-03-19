@@ -8,7 +8,6 @@ What explorative coding thus far showed:
 - there should be a possibility to override the return value in a after or before pointcut via PointcutArguments
 - evaluating the matchers at call-time (especially the Advice matchers) could be rather expensive and is very likely the performance bottleneck
 - there should be the possibility to weave constructors
-- need to write a schema for integrating the aop namespace in the container builders xml format
 - should write some tests...
 
 
