@@ -13,5 +13,5 @@ What explorative coding thus far showed:
 
 TODO:
 
-also enable callbacks instead of simple service instances
+also enable callbacks instead of simple service instances (maybe make "Callback" Wrapper Class?")
 performance/caching????

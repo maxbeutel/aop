@@ -3,7 +3,6 @@
 namespace Aop\ContainerBuilder;
 
 use Aop\Pointcut\Matcher\MethodName;
-use Closure;
 use InvalidArgumentException;
 
 class PointcutConfiguration implements PointcutConfigurationInterface
@@ -49,7 +48,6 @@ class PointcutConfiguration implements PointcutConfigurationInterface
         return $this;
     }
 
-    // Put in Interface
     public function before()
     {
         return $this->aspectConfiguration->before();
