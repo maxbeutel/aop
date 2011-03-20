@@ -40,9 +40,9 @@ class ControllerAspect implements Aop\Aspect\SelfRegistering
 
     public function register(Aop\ContainerBuilder $container)
     {
-        $container->aspect($this)->weave()->className('Controller')
-                  ->before()->methodName('Action')->call('beforeControllerAction')
-                  ->after()->methodName('Action')->call('afterControllerAction');
+        $container->weave()->className('Controller')
+                  ->before()->methodName('Action')->call(array($this, 'beforeControllerAction'))
+                  ->after()->methodName('Action')->call(array($this, 'afterControllerAction'));
     }
 }
 

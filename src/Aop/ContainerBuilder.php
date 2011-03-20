@@ -70,16 +70,16 @@ class ContainerBuilder extends BaseContainerBuilder
         return $this;
     }
 
-    public function aspect(SelfRegistering $aspect)
+    public function weave()
     {
-        $aspectConfiguration = new AspectConfiguration($aspect);
+        $aspectConfiguration = new AspectConfiguration();
         $this->aspectConfigurations[] = $aspectConfiguration;
         return $aspectConfiguration;
     }
 
     protected function addConfiguredAspect(AspectConfiguration $aspectConfiguration)
     {
-        $aspect = new Aspect($aspectConfiguration->getService());
+        $aspect = new Aspect();
 
         foreach ($aspectConfiguration->getMatcher() as $matcher) {
             $aspect->addMatcher($matcher);

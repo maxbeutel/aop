@@ -9,19 +9,15 @@ class AspectConfigurationTest extends PHPUnit_Framework_Testcase
 {
     public function testSimpleGetter()
     {
-        $service = new stdClass();
-        $aspectConfiguration = new AspectConfiguration($service);
+        $aspectConfiguration = new AspectConfiguration();
 
-        $this->assertEquals($service, $aspectConfiguration->getService());
-        $this->assertEquals($aspectConfiguration, $aspectConfiguration->weave());
         $this->assertEquals($aspectConfiguration, $aspectConfiguration->className('SomeClass'));
         $this->assertEquals($aspectConfiguration, $aspectConfiguration->interfaceImplementor('SomeInterface'));
     }
 
     public function testInterfaceImplementorCondition()
     {
-        $service = new stdClass();
-        $aspectConfiguration = new AspectConfiguration($service);
+        $aspectConfiguration = new AspectConfiguration();
         $aspectConfiguration->interfaceImplementor('SomeInterface');
 
         list($matcher) = $aspectConfiguration->getMatcher();
@@ -40,8 +36,7 @@ class AspectConfigurationTest extends PHPUnit_Framework_Testcase
 
     public function testBeforePointcutConfiguration()
     {
-        $service = new stdClass();
-        $aspectConfiguration = new AspectConfiguration($service);
+        $aspectConfiguration = new AspectConfiguration();
         $returnedPointcutConfiguration = $aspectConfiguration->before();
 
         list($pointcutConfiguration) = $aspectConfiguration->getPointcutConfigurations();
@@ -52,8 +47,7 @@ class AspectConfigurationTest extends PHPUnit_Framework_Testcase
 
     public function testAfterPointcutConfiguration()
     {
-        $service = new stdClass();
-        $aspectConfiguration = new AspectConfiguration($service);
+        $aspectConfiguration = new AspectConfiguration();
         $returnedPointcutConfiguration = $aspectConfiguration->after();
 
         list($pointcutConfiguration) = $aspectConfiguration->getPointcutConfigurations();

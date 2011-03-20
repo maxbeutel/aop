@@ -7,22 +7,13 @@ use ReflectionClass;
 
 class Aspect
 {
-    protected $container;
-    protected $service;
-
     protected $matchers = array();
 
     protected $beforePointcuts = array();
     protected $afterPointcuts = array();
 
-    public function __construct($service)
+    public function __construct()
     {
-        $this->service = $service;
-    }
-
-    public function getService()
-    {
-        return $this->service;
     }
 
     public function addMatcher($matcher)
@@ -43,22 +34,18 @@ class Aspect
 
     public function execBeforePointcuts(Arguments $arguments)
     {
-        $aspect = $this;
-
-        array_map(function($p) use(&$aspect, &$arguments) {
+        array_map(function($p) use(&$arguments) {
             if ($p->isApplicableFor($arguments)) {
-                $p->exec($aspect, $arguments);
+                $p->exec($arguments);
             }
         }, $this->beforePointcuts);
     }
 
     public function execAfterPointcuts(Arguments $arguments)
     {
-        $aspect = $this;
-
-        array_map(function($p) use(&$aspect, &$arguments) {
+        array_map(function($p) use(&$arguments) {
             if ($p->isApplicableFor($arguments)) {
-                $p->exec($aspect, $arguments);
+                $p->exec($arguments);
             }
         }, $this->afterPointcuts);
     }

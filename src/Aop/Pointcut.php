@@ -7,11 +7,11 @@ use Aop\Pointcut\Arguments;
 class Pointcut
 {
     protected $matchers = array();
-    protected $interceptorMethodName;
+    protected $callback;
 
-    public function __construct($interceptorMethodName)
+    public function __construct($callback)
     {
-        $this->interceptorMethodName = $interceptorMethodName;
+        $this->callback = $callback;
     }
 
     public function addMatcher($matcher)
@@ -30,11 +30,10 @@ class Pointcut
         return false;
     }
 
-    // @TODO rather ugly, maybe give container service id to pointcut directly
-    // acutally no need to go over aspect
-    public function exec(Aspect $aspect, Arguments $arguments)
+    public function exec(Arguments $arguments)
     {
-        $aspect->getService()->{$this->interceptorMethodName}($arguments);
+        // @TODO execute callback
+        #$aspect->getService()->{$this->interceptorMethodName}($arguments);
     }
 }
 

@@ -7,21 +7,11 @@ use Aop\Aspect\Matcher\InterfaceImplementation;
 
 class AspectConfiguration implements PointcutConfigurationInterface
 {
-    protected $service;
-
     protected $pointcutConfigurations = array();
     protected $matcher = array();
 
-
-    // @TODO service might also be a callback instead of class instance
-    public function __construct($service)
+    public function __construct()
     {
-        $this->service = $service;
-    }
-
-    public function getService()
-    {
-        return $this->service;
     }
 
     public function getMatcher()
@@ -32,11 +22,6 @@ class AspectConfiguration implements PointcutConfigurationInterface
     public function getPointcutConfigurations()
     {
         return $this->pointcutConfigurations;
-    }
-
-    public function weave()
-    {
-        return $this;
     }
 
     public function className($className, $useRegex = false)
