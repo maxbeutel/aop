@@ -2,9 +2,9 @@
 
 namespace Aop\Pointcut\Matcher;
 
-use Aop\Pointcut\Arguments;
+use ReflectionMethod;
 
 interface MatcherInterface
 {
-    function match(Arguments $arguments);
+    function match(ReflectionMethod $arguments);
 }

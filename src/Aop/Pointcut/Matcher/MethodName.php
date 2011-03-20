@@ -2,7 +2,7 @@
 
 namespace Aop\Pointcut\Matcher;
 
-use Aop\Pointcut\Arguments;
+use ReflectionMethod;
 
 class MethodName implements MatcherInterface
 {
@@ -15,13 +15,13 @@ class MethodName implements MatcherInterface
         $this->useRegex = $useRegex;
     }
 
-    public function match(Arguments $arguments)
+    public function match(ReflectionMethod $method)
     {
         if ($this->useRegex) {
-            return (bool)preg_match('#' . $this->pattern . '#i', $arguments->getMethodName());
+            return (bool)preg_match('#' . $this->pattern . '#i', $method->getName());
         }
 
-        return (bool)stristr($arguments->getMethodName(), $this->pattern);
+        return (bool)stristr($method->getName(), $this->pattern);
     }
 }
 
