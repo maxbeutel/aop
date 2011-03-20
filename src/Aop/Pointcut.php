@@ -40,7 +40,7 @@ class Pointcut
     public function getHashCode()
     {
         // @TODO cache the hash
-        return spl_object_hash($this);
+        return md5(serialize($this));
     }
 }
 
