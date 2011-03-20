@@ -21,7 +21,7 @@ class ProxyFactory
                 '<className>'
             ),
             array(
-                $this->generateMethods($r),
+                $this->generateMethods($aspect, $r),
                 $proxyClassName,
                 $r->getName()
             ),
@@ -42,7 +42,7 @@ class ProxyFactory
      *
      * @see https://github.com/doctrine/doctrine2/raw/master/lib/Doctrine/ORM/Proxy/ProxyFactory.php
      */
-    private function generateMethods(\ReflectionClass $r)
+    private function generateMethods(Aspect $aspect, \ReflectionClass $r)
     {
         $methods = '';
 
@@ -97,13 +97,25 @@ class ProxyFactory
                 } else {
                     $interceptedParameters = 'array()';
                 }
-                #print_r($interceptedParameters);
+
+                // @TODO create convenience method for only getting the hashcodes of the applicable pointcuts
+                $applicableBeforePointcuts = array();
+
+                foreach ($aspect->getApplicableBeforePointcuts($method) as $pointcut) {
+                    $applicableBeforePointcuts[$pointcut->getHashCode()] = null;
+                }
+
+                $applicableAfterPointcuts = array();
+
+                foreach ($aspect->getApplicableAfterPointcuts($method) as $pointcut) {
+                    $applicableAfterPointcuts[$pointcut->getHashCode()] = null;
+                }
 
                 $methods .= $parameterString . ')';
                 $methods .= PHP_EOL . '    {' . PHP_EOL;
-                $methods .= PHP_EOL . '    $this->__aspect->execBeforePointcuts(new \Aop\Pointcut\Arguments($this, __METHOD__, ' . $interceptedParameters . '));' . PHP_EOL;
+                $methods .= PHP_EOL . '    $this->__aspect->execBeforePointcuts(' . var_export($applicableBeforePointcuts, true) . ', new \Aop\Pointcut\Arguments($this, __METHOD__, ' . $interceptedParameters . '));' . PHP_EOL;
                 $methods .= '              parent::' . $method->getName() . '(' . $argumentString . ');';
-                $methods .= PHP_EOL . '    $this->__aspect->execAfterPointcuts(new \Aop\Pointcut\Arguments($this, __METHOD__, ' . $interceptedParameters . '));' . PHP_EOL;
+                $methods .= PHP_EOL . '    $this->__aspect->execAfterPointcuts(' . var_export($applicableAfterPointcuts, true) . ', new \Aop\Pointcut\Arguments($this, __METHOD__, ' . $interceptedParameters . '));' . PHP_EOL;
                 $methods .= PHP_EOL . '    }' . PHP_EOL;
             }
         }

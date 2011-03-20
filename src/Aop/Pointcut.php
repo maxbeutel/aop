@@ -2,8 +2,9 @@
 
 namespace Aop;
 
-use Aop\Pointcut\Arguments;
 use Aop\Pointcut\Callback;
+use Aop\Pointcut\Arguments;
+use ReflectionMethod;
 
 class Pointcut
 {
@@ -20,10 +21,10 @@ class Pointcut
         $this->matchers[] = $matcher;
     }
 
-    public function isApplicableFor(Arguments $arguments)
+    public function isApplicableFor(ReflectionMethod $method)
     {
         foreach ($this->matchers as $matcher) {
-            if ($matcher->match($arguments)) {
+            if ($matcher->match($method)) {
                 return true;
             }
         }
@@ -34,6 +35,12 @@ class Pointcut
     public function exec(Arguments $arguments)
     {
         $this->callback->exec($arguments);
+    }
+
+    public function getHashCode()
+    {
+        // @TODO cache the hash
+        return spl_object_hash($this);
     }
 }
 
