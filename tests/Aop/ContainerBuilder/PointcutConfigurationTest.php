@@ -10,13 +10,7 @@ class PointcutConfigurationTest extends PHPUnit_Framework_Testcase
 
     public function setUp()
     {
-        $this->aspectConfigurationMock = $this->getMock(
-            'Aop\ContainerBuilder\AspectConfiguration',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $this->aspectConfigurationMock = $this->getMock('Aop\ContainerBuilder\AspectConfiguration', array(), array(), '', false);
     }
 
     public function testTypeGetter()
