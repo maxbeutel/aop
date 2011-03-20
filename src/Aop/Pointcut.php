@@ -4,6 +4,7 @@ namespace Aop;
 
 use Aop\Pointcut\Callback;
 use Aop\Pointcut\Arguments;
+use Aop\Pointcut\Matcher\MatcherInterface;
 use ReflectionMethod;
 
 class Pointcut
@@ -16,7 +17,7 @@ class Pointcut
         $this->callback = $callback;
     }
 
-    public function addMatcher($matcher)
+    public function addMatcher(MatcherInterface $matcher)
     {
         $this->matchers[] = $matcher;
     }
