@@ -26,7 +26,7 @@ class PointcutConfigurationTest extends PHPUnit_Framework_Testcase
     {
         $pointcutConfiguration = new PointcutConfiguration($this->aspectConfigurationMock, PointcutConfiguration::POINTCUT_TYPE_BEFORE);
         $pointcutConfiguration->call('strtolower');
-        $this->assertEquals('strtolower', $pointcutConfiguration->getCallback());
+        $this->assertType('Aop\Pointcut\Callback', $pointcutConfiguration->getCallback());
     }
 
     public function testCallThrowsExceptionOnInvalidCallback()

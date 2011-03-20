@@ -3,13 +3,14 @@
 namespace Aop;
 
 use Aop\Pointcut\Arguments;
+use Aop\Pointcut\Callback;
 
 class Pointcut
 {
     protected $matchers = array();
     protected $callback;
 
-    public function __construct($callback)
+    public function __construct(Callback $callback)
     {
         $this->callback = $callback;
     }
@@ -32,8 +33,7 @@ class Pointcut
 
     public function exec(Arguments $arguments)
     {
-        // @TODO execute callback   
-        #$aspect->getService()->{$this->interceptorMethodName}($arguments);
+        $this->callback->exec($arguments);
     }
 }
 

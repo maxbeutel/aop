@@ -11,14 +11,14 @@ class CallbackTest extends PHPUnit_Framework_Testcase
     protected static $staticClassMethodArguments;
     protected $instnaceMethodArguments;
 
-    public static function staticMethodCallback(Arguments $arguments)
+    public static function staticMethodCallback()
     {
-        self::$staticClassMethodArguments = $arguments;
+        self::$staticClassMethodArguments = func_get_args();
     }
 
-    public function instanceMethodCallback(Arguments $arguments)
+    public function instanceMethodCallback()
     {
-        $this->instnaceMethodArguments = $arguments;
+        $this->instnaceMethodArguments = func_get_args();
     }
 
     public function setUp()
@@ -33,13 +33,13 @@ class CallbackTest extends PHPUnit_Framework_Testcase
     {
         $callbackArguments = null;
 
-        $callback = new Callback(function(Arguments $arguments) use(&$callbackArguments) {
-            $callbackArguments = $arguments;
+        $callback = new Callback(function() use(&$callbackArguments) {
+            $callbackArguments = func_get_args();
         });
 
         $callback->exec($this->argumentsMock);
 
-        $this->assertEquals($this->argumentsMock, $callbackArguments);
+        $this->assertEquals($this->argumentsMock, $callbackArguments[0]);
     }
 
     public function testExecStaticMethod()
@@ -47,7 +47,7 @@ class CallbackTest extends PHPUnit_Framework_Testcase
         $callback = new Callback(__CLASS__ . '::staticMethodCallback');
         $callback->exec($this->argumentsMock);
 
-        $this->assertEquals($this->argumentsMock, self::$staticClassMethodArguments);
+        $this->assertEquals($this->argumentsMock, self::$staticClassMethodArguments[0]);
     }
 
     public function testExecInstanceMethod()
@@ -55,6 +55,38 @@ class CallbackTest extends PHPUnit_Framework_Testcase
         $callback = new Callback(array($this, 'instanceMethodCallback'));
         $callback->exec($this->argumentsMock);
 
-        $this->assertEquals($this->argumentsMock, $this->instnaceMethodArguments);
+        $this->assertEquals($this->argumentsMock, $this->instnaceMethodArguments[0]);
+    }
+
+    public function testExecClosureWithUserdefinedArguments()
+    {
+        $callbackArguments = null;
+
+        $callback = new Callback(function() use(&$callbackArguments) {
+            $callbackArguments = func_get_args();
+        }, array('frob'));
+
+        $callback->exec($this->argumentsMock);
+
+        $this->assertEquals($this->argumentsMock, $callbackArguments[0]);
+        $this->assertEquals('frob', $callbackArguments[1]);
+    }
+
+    public function testExecStaticMethodWithUserdefinedArguments()
+    {
+        $callback = new Callback(__CLASS__ . '::staticMethodCallback', array('frob'));
+        $callback->exec($this->argumentsMock);
+
+        $this->assertEquals($this->argumentsMock, self::$staticClassMethodArguments[0]);
+        $this->assertEquals('frob', self::$staticClassMethodArguments[1]);
+    }
+
+    public function testExecInstanceMethodWithUserdefinedArguments()
+    {
+        $callback = new Callback(array($this, 'instanceMethodCallback'), array('frob'));
+        $callback->exec($this->argumentsMock);
+
+        $this->assertEquals($this->argumentsMock, $this->instnaceMethodArguments[0]);
+        $this->assertEquals('frob', $this->instnaceMethodArguments[1]);
     }
 }

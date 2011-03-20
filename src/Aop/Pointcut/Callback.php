@@ -17,11 +17,6 @@ class Callback
 
     public function exec(Arguments $arguments)
     {
-        if ($this->phpCallback instanceof Closure) {
-            $callback = $this->phpCallback;
-            $callback($arguments);
-        } else {
-            call_user_func_array($this->phpCallback, array($arguments));
-        }
+        call_user_func_array($this->phpCallback, array_merge(array($arguments), $this->userDefinedArguments));
     }
 }
