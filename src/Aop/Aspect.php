@@ -33,18 +33,28 @@ class Aspect
         return false;
     }
 
-    public function getApplicableBeforePointcuts(ReflectionMethod $method)
+    protected function getApplicableBeforePointcuts(ReflectionMethod $method)
     {
         return array_filter($this->beforePointcuts, function(Pointcut $p) use(&$method) {
             return $p->isApplicableFor($method);
         });
     }
 
-    public function getApplicableAfterPointcuts(ReflectionMethod $method)
+    public function getApplicableBeforePointcutKeys(ReflectionMethod $method)
+    {
+        return array_flip(array_keys($this->getApplicableBeforePointcuts($method)));
+    }
+
+    protected function getApplicableAfterPointcuts(ReflectionMethod $method)
     {
         return array_filter($this->afterPointcuts, function(Pointcut $p) use(&$method) {
             return $p->isApplicableFor($method);
         });
+    }
+
+    public function getApplicableAfterPointcutKeys(ReflectionMethod $method)
+    {
+        return array_flip(array_keys($this->getApplicableAfterPointcuts($method)));
     }
 
     public function execBeforePointcuts(array $pointcutHashCodes, Arguments $arguments)
