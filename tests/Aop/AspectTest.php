@@ -28,5 +28,31 @@ class AspectTest extends PHPUnit_Framework_TestCase
         $aspect = new Aspect();
         $this->beforePointcutMock_1->expects($this->once())->method('freeze');
         $aspect->registerBeforePointcut($this->beforePointcutMock_1);
+        $this->afterPointcutMock_1->expects($this->once())->method('freeze');
+        $aspect->registerAfterPointcut($this->afterPointcutMock_1);
+    }
+
+    public function testRegisterBeforePointcutThrowsExceptionIfAlreadyRegistered()
+    {
+        $this->beforePointcutMock_1->expects($this->any())->method('getHashCode')->will($this->returnValue('123'));
+
+        $aspect = new Aspect();
+        $aspect->registerBeforePointcut($this->beforePointcutMock_1);
+
+        $this->setExpectedException('InvalidArgumentException', 'Pointcut already registered');
+
+        $aspect->registerBeforePointcut($this->beforePointcutMock_1);
+    }
+
+    public function testRegisterAfterPointcutThrowsExceptionIfAlreadyRegistered()
+    {
+        $this->afterPointcutMock_1->expects($this->any())->method('getHashCode')->will($this->returnValue('123'));
+
+        $aspect = new Aspect();
+        $aspect->registerAfterPointcut($this->afterPointcutMock_1);
+
+        $this->setExpectedException('InvalidArgumentException', 'Pointcut already registered');
+
+        $aspect->registerAfterPointcut($this->afterPointcutMock_1);
     }
 }
