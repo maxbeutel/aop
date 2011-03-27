@@ -11,6 +11,8 @@ class Pointcut
 {
     protected $matchers = array();
     protected $callback;
+    
+    protected $hashCode;
 
     public function __construct(Callback $callback)
     {
@@ -40,8 +42,11 @@ class Pointcut
 
     public function getHashCode()
     {
-        // @TODO cache the hash
-        return md5(serialize($this));
+        if ($this->hashCode === null) {
+            $this->hashCode = md5(serialize($this));
+        }
+
+        return $this->hashCode;
     }
 }
 
