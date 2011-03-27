@@ -6,6 +6,7 @@ use Aop\Pointcut\Callback;
 use Aop\Pointcut\Arguments;
 use Aop\Pointcut\Matcher\MatcherInterface;
 use ReflectionMethod;
+use BadMethodCallException;
 
 class Pointcut
 {
@@ -13,6 +14,7 @@ class Pointcut
     protected $callback;
     
     protected $hashCode;
+    protected $frozen = false;
 
     public function __construct(Callback $callback)
     {
@@ -21,6 +23,10 @@ class Pointcut
 
     public function addMatcher(MatcherInterface $matcher)
     {
+        if ($this->frozen) {
+            throw new BadMethodCallException('Pointcut already frozen');
+        }
+
         $this->matchers[] = $matcher;
     }
 
@@ -38,6 +44,11 @@ class Pointcut
     public function exec(Arguments $arguments)
     {
         $this->callback->exec($arguments);
+    }
+
+    public function freeze()
+    {
+        $this->frozen = true;
     }
 
     public function getHashCode()

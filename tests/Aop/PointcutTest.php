@@ -26,4 +26,15 @@ class PointcutTest extends PHPUnit_Framework_TestCase
         $pointcut = new Pointcut($this->callbackMock);
         $pointcut->exec($this->argumentsMock);
     }
+
+    public function testFreeze()
+    {
+        $pointcut = new Pointcut($this->callbackMock);
+        $pointcut->addMatcher($this->matcherMock);
+
+        $this->setExpectedException('BadMethodCallException', 'Pointcut already frozen');
+
+        $pointcut->freeze();
+        $pointcut->addMatcher($this->matcherMock);
+    }
 }
