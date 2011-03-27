@@ -2,9 +2,9 @@
 
 namespace Aop\Pointcut;
 
-use PHPUnit_Framework_Testcase;
+use PHPUnit_Framework_TestCase;
 
-class ArgumentsTest extends PHPUnit_Framework_Testcase
+class ArgumentsTest extends PHPUnit_Framework_TestCase
 {
     public function testGetter()
     {

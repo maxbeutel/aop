@@ -2,9 +2,9 @@
 
 namespace Aop;
 
-use PHPUnit_Framework_Testcase;
+use PHPUnit_Framework_TestCase;
 
-class PointcutTest extends PHPUnit_Framework_Testcase
+class PointcutTest extends PHPUnit_Framework_TestCase
 {
     protected $callbackMock;
     protected $reflectionClassMock;

@@ -2,7 +2,7 @@
 
 namespace Aop\Aspect\Matcher;
 
-use PHPUnit_Framework_Testcase;
+use PHPUnit_Framework_TestCase;
 use ReflectionClass;
 
 class ClassNameTest extends PHPUnit_Framework_TestCase

@@ -2,9 +2,9 @@
 
 namespace Aop\ContainerBuilder;
 
-use PHPUnit_Framework_Testcase;
+use PHPUnit_Framework_TestCase;
 
-class PointcutConfigurationTest extends PHPUnit_Framework_Testcase
+class PointcutConfigurationTest extends PHPUnit_Framework_TestCase
 {
     protected $aspectConfigurationMock;
 

@@ -2,7 +2,7 @@
 
 namespace Aop\Aspect\Matcher;
 
-use PHPUnit_Framework_Testcase;
+use PHPUnit_Framework_TestCase;
 use ReflectionClass;
 
 interface DummyInterface
@@ -13,7 +13,7 @@ class DummyClass implements DummyInterface
 {
 }
 
-class InterfaceImplementationTest extends PHPUnit_Framework_Testcase
+class InterfaceImplementationTest extends PHPUnit_Framework_TestCase
 {
     public function testMatch()
     {

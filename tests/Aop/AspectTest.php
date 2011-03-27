@@ -2,9 +2,9 @@
 
 namespace Aop;
 
-use PHPUnit_Framework_Testcase;
+use PHPUnit_Framework_TestCase;
 
-class AspectTest extends PHPUnit_Framework_Testcase
+class AspectTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

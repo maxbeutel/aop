@@ -2,10 +2,10 @@
 
 namespace Aop\ContainerBuilder;
 
-use PHPUnit_Framework_Testcase;
+use PHPUnit_Framework_TestCase;
 use stdClass;
 
-class AspectConfigurationTest extends PHPUnit_Framework_Testcase
+class AspectConfigurationTest extends PHPUnit_Framework_TestCase
 {
     public function testSimpleGetter()
     {

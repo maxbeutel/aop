@@ -2,9 +2,9 @@
 
 namespace Aop\Pointcut\Matcher;
 
-use PHPUnit_Framework_Testcase;
+use PHPUnit_Framework_TestCase;
 
-class MethodNameTest extends PHPUnit_Framework_Testcase
+class MethodNameTest extends PHPUnit_Framework_TestCase
 {
     protected $reflectionMethodMock;
 
