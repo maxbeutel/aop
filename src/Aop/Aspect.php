@@ -5,6 +5,7 @@ namespace Aop;
 use Aop\Pointcut\Arguments;
 use ReflectionClass;
 use ReflectionMethod;
+use InvalidArgumentException;
 
 class Aspect
 {
@@ -77,17 +78,21 @@ class Aspect
 
     public function registerBeforePointcut(Pointcut $pointcut)
     {
-        // @TODO: freeze pointcut
-        // @TODO: throw exception if pointcut with same hashcode alrady existis
-        // @TODO: Maybe check Pointcut type?
+        if (isset($this->beforePointcuts[$pointcut->getHashCode()])) {
+            throw new InvalidArgumentException('Pointcut already registered');
+        }
+
+        $pointcut->freeze();
         $this->beforePointcuts[$pointcut->getHashCode()] = $pointcut;
     }
 
     public function registerAfterPointcut(Pointcut $pointcut)
     {
-        // @TODO: freeze pointcut
-        // @TODO: throw exception if pointcut with same hashcode alrady existis
-        // @TODO: Maybe check Pointcut type?
+        if (isset($this->afterPointcuts[$pointcut->getHashCode()])) {
+            throw new InvalidArgumentException('Pointcut already registered');
+        }
+
+        $pointcut->freeze();
         $this->afterPointcuts[$pointcut->getHashCode()] = $pointcut;
     }
 }

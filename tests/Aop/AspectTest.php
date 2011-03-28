@@ -27,12 +27,32 @@ class AspectTest extends PHPUnit_Framework_TestCase
         $this->afterPointcutMock_2 = $this->getMock('Aop\Pointcut', array(), array(), '', false);
 
         $this->argumentsMock = $this->getMock('Aop\Pointcut\Arguments', array(), array(), '', false);
+
+        $this->matcherMock = $this->getMock('Aop\Aspect\Matcher\MatcherInterface', array(), array(), '', false);
     }
 
-    public function testIsApplicableForReturnsFalseIfNoMatherExist()
+    public function testIsApplicableForReturnsFalseIfNoMatcherExist()
     {
         $aspect = new Aspect();
         $this->assertFalse($aspect->isApplicableFor($this->reflectionClassMock));
+    }
+
+    public function testIsAppicableForReturnsFalseIfMatcherDoesnotMatch()
+    {
+        $this->matcherMock->expects($this->once())->method('match')->with($this->equalTo($this->reflectionClassMock))->will($this->returnValue(false));
+
+        $aspect = new Aspect();
+        $aspect->addMatcher($this->matcherMock);
+        $this->assertFalse($aspect->isApplicableFor($this->reflectionClassMock));
+    }
+
+    public function testIsAppicableForReturnsTrueIfMatcherMatches()
+    {
+        $this->matcherMock->expects($this->once())->method('match')->with($this->equalTo($this->reflectionClassMock))->will($this->returnValue(true));
+
+        $aspect = new Aspect();
+        $aspect->addMatcher($this->matcherMock);
+        $this->assertTrue($aspect->isApplicableFor($this->reflectionClassMock));
     }
 
     public function testRegisteringPointcutFreezesPointcutInstance()
