@@ -16,10 +16,15 @@ use Symfony\Component\Config\FileLocator;
 
 interface ControllerInterface
 {
+    //function  __construct(Request $request, Response $response, array $params);
 }
 
 class MyControllerClass implements ControllerInterface
 {
+    //public function __construct(Request $request, Response $response, array $params)
+    //{
+    //}
+
     public function doStuffAction($someValue, $someOtherValue)
     {
         print "doStuffAction called";
