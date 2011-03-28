@@ -21,9 +21,9 @@ interface ControllerInterface
 
 class MyControllerClass implements ControllerInterface
 {
-    //public function __construct(Request $request, Response $response, array $params)
-    //{
-    //}
+    public function __construct()
+    {
+    }
 
     public function doStuffAction($someValue, $someOtherValue)
     {
