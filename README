@@ -5,13 +5,12 @@ https://github.com/doctrine/doctrine2/raw/master/lib/Doctrine/ORM/Proxy/ProxyFac
 
 What explorative coding thus far showed:
 
-- there should be a possibility to override the return value in a after or before pointcut via PointcutArguments
-- evaluating the matchers at call-time (especially the Advice matchers) could be rather expensive and is very likely the performance bottleneck
 - there should be the possibility to weave constructors
 - should write some tests...
 
 
 TODO:
 
-also enable callbacks instead of simple service instances (maybe make "Callback" Wrapper Class?")
+enable it to have more then one matching aspect per class
+aspect should cache which classes it matched in order to perform well when many instances of the same class are instantiated
 performance/caching????

@@ -32,6 +32,7 @@ class ContainerBuilder extends BaseContainerBuilder
 
         $arguments = $this->resolveServices($this->getParameterBag()->resolveValue($definition->getArguments()));
 
+        // no way to create a weaved object from a factory method :-(
         if (null !== $definition->getFactoryMethod()) {
             if (null !== $definition->getFactoryClass()) {
                 $factory = $this->getParameterBag()->resolveValue($definition->getFactoryClass());
