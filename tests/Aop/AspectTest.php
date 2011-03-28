@@ -7,6 +7,7 @@ use PHPUnit_Framework_TestCase;
 class AspectTest extends PHPUnit_Framework_TestCase
 {
     protected $reflectionClassMock;
+    protected $reflectionMethodMock;
 
     protected $beforePointcutMock_1;
     protected $beforePointcutMock_2;
@@ -14,11 +15,14 @@ class AspectTest extends PHPUnit_Framework_TestCase
     protected $afterPointcutMock_1;
     protected $afterPointcutMock_2;
 
-    protected $_argumentsMock;
+    protected $argumentsMock;
+
+    protected $matcherMock;
 
     public function setUp()
     {
         $this->reflectionClassMock = $this->getMock('ReflectionClass', array(), array(), '', false);
+        $this->reflectionMethodMock = $this->getMock('ReflectionMethod', array(), array(), '', false);
 
         $this->beforePointcutMock_1 = $this->getMock('Aop\Pointcut', array(), array(), '', false);
         $this->beforePointcutMock_2 = $this->getMock('Aop\Pointcut', array(), array(), '', false);
@@ -37,9 +41,44 @@ class AspectTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($aspect->isApplicableFor($this->reflectionClassMock));
     }
 
+    public function testGetApplicableBeforePointcutKeys()
+    {
+        $this->beforePointcutMock_1->expects($this->any())->method('getHashCode')->will($this->returnValue('1234'));
+        $this->beforePointcutMock_1->expects($this->any())->method('isApplicableFor')->with($this->equalTo($this->reflectionMethodMock))->will($this->returnValue(true));
+
+        $this->beforePointcutMock_2->expects($this->any())->method('getHashCode')->will($this->returnValue('5678'));
+        $this->beforePointcutMock_2->expects($this->any())->method('isApplicableFor')->with($this->equalTo($this->reflectionMethodMock))->will($this->returnValue(false));
+
+        $aspect = new Aspect();
+        $this->assertEquals(array(), $aspect->getApplicableBeforePointcutKeys($this->reflectionMethodMock));
+
+        $aspect = new Aspect();
+        $aspect->registerBeforePointcut($this->beforePointcutMock_1);
+        $aspect->registerBeforePointcut($this->beforePointcutMock_2);
+        $this->assertEquals(array('1234' => 0), $aspect->getApplicableBeforePointcutKeys($this->reflectionMethodMock));
+    }
+
+
+    public function testGetApplicableAfterPointcutKeys()
+    {
+        $this->afterPointcutMock_1->expects($this->any())->method('getHashCode')->will($this->returnValue('1234'));
+        $this->afterPointcutMock_1->expects($this->any())->method('isApplicableFor')->with($this->equalTo($this->reflectionMethodMock))->will($this->returnValue(true));
+
+        $this->afterPointcutMock_2->expects($this->any())->method('getHashCode')->will($this->returnValue('5678'));
+        $this->afterPointcutMock_2->expects($this->any())->method('isApplicableFor')->with($this->equalTo($this->reflectionMethodMock))->will($this->returnValue(false));
+
+        $aspect = new Aspect();
+        $this->assertEquals(array(), $aspect->getApplicableAfterPointcutKeys($this->reflectionMethodMock));
+
+        $aspect = new Aspect();
+        $aspect->registerAfterPointcut($this->afterPointcutMock_1);
+        $aspect->registerAfterPointcut($this->afterPointcutMock_2);
+        $this->assertEquals(array('1234' => 0), $aspect->getApplicableAfterPointcutKeys($this->reflectionMethodMock));
+    }
+
     public function testIsAppicableForReturnsFalseIfMatcherDoesnotMatch()
     {
-        $this->matcherMock->expects($this->once())->method('match')->with($this->equalTo($this->reflectionClassMock))->will($this->returnValue(false));
+        $this->matcherMock->expects($this->any())->method('match')->with($this->equalTo($this->reflectionClassMock))->will($this->returnValue(false));
 
         $aspect = new Aspect();
         $aspect->addMatcher($this->matcherMock);
@@ -48,7 +87,7 @@ class AspectTest extends PHPUnit_Framework_TestCase
 
     public function testIsAppicableForReturnsTrueIfMatcherMatches()
     {
-        $this->matcherMock->expects($this->once())->method('match')->with($this->equalTo($this->reflectionClassMock))->will($this->returnValue(true));
+        $this->matcherMock->expects($this->any())->method('match')->with($this->equalTo($this->reflectionClassMock))->will($this->returnValue(true));
 
         $aspect = new Aspect();
         $aspect->addMatcher($this->matcherMock);
