@@ -3,6 +3,7 @@
 namespace Aop;
 
 use Aop\Pointcut\Arguments;
+use Aop\Aspect\Matcher\MatcherInterface;
 use ReflectionClass;
 use ReflectionMethod;
 use InvalidArgumentException;
@@ -18,7 +19,7 @@ class Aspect
     {
     }
 
-    public function addMatcher($matcher)
+    public function addMatcher(MatcherInterface $matcher)
     {
         $this->matchers[] = $matcher;
     }
