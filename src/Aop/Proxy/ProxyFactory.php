@@ -3,6 +3,7 @@
 namespace Aop\Proxy;
 
 use Aop\Aspect;
+use ReflectionClass;
 
 class ProxyFactory
 {
@@ -10,7 +11,7 @@ class ProxyFactory
     {
     }
 
-    public function getProxy(Aspect $aspect, \ReflectionClass $r)
+    public function getProxy(Aspect $aspect, ReflectionClass $r)
     {
         $proxyClassName = str_replace('\\', '', $r->getName()) . 'Proxy';
 
@@ -42,7 +43,7 @@ class ProxyFactory
      *
      * @see https://github.com/doctrine/doctrine2/raw/master/lib/Doctrine/ORM/Proxy/ProxyFactory.php
      */
-    private function generateMethods(Aspect $aspect, \ReflectionClass $r)
+    private function generateMethods(Aspect $aspect, ReflectionClass $r)
     {
         $methods = '';
 
