@@ -49,9 +49,8 @@ class ContainerBuilder extends BaseContainerBuilder
             // @TODO: currently only one aspect per class can be declared
             foreach ($this->aspects as $aspect) {
                 if ($aspect->isApplicableFor($r)) {
-                    $proxy = $this->proxyFactory->getProxy($aspect, $r);
-                    return $this->configureService($id, $definition, $proxy);
-                    // @TODO: take constructor into consideration
+                    $proxyDefinition = $this->proxyFactory->getProxyDefinition($aspect, $r);
+                    return $this->configureService($id, $definition, $proxyDefinition->createInstance($arguments));
                 }
             }
 

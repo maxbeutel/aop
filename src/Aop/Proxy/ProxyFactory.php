@@ -11,7 +11,7 @@ class ProxyFactory
     {
     }
 
-    public function getProxy(Aspect $aspect, ReflectionClass $r)
+    public function getProxyDefinition(Aspect $aspect, ReflectionClass $r)
     {
         $proxyClassName = str_replace('\\', '', $r->getName()) . 'Proxy';
 
@@ -33,9 +33,8 @@ class ProxyFactory
             eval($proxyClassDefinition);
         }
 
-        $instance = new $proxyClassName();
-        $instance->__setAspect($aspect);
-        return $instance;
+        $proxyDefinition = new ProxyDefinition($proxyClassName, $aspect);
+        return $proxyDefinition;
     }
 
     /**
